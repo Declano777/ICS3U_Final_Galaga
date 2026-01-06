@@ -15,8 +15,8 @@ namespace ICS3U_Final_Galaga
         // PLAYER
         int playerX = 360;
         int playerY = 730;
-        int playerWidth = 40;
-        int playerHeight = 20;
+        int playerWidth = 80;
+        int playerHeight = 40;
         int playerSpeed = 3;
 
         bool moveLeft = false;
@@ -25,13 +25,25 @@ namespace ICS3U_Final_Galaga
         // PLAYER BULLET
         int bulletX;
         int bulletY;
-        int bulletWidth = 4;
-        int bulletHeight = 10;
+        int bulletWidth = 8;
+        int bulletHeight = 20;
         int bulletSpeed = 6;
         bool bulletActive = false;
+
+        // ALIENS
+        const int alienRows = 3;
+        const int alienCols = 10;
+
+        int[,] alienX = new int[alienRows, alienCols];
+        int[,] alienY = new int[alienRows, alienCols];
+        bool[,] alienAlive = new bool[alienRows, alienCols];
+
+        int alienWidth = 60;
+        int alienHeight = 40;
         public Form1()
         {
             InitializeComponent();
+            SetupAliens();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -83,6 +95,23 @@ namespace ICS3U_Final_Galaga
                 );
 
             }
+            // DRAW ALIENS
+            for (int r = 0; r < alienRows; r++)
+            {
+                for (int c = 0; c < alienCols; c++)
+                {
+                    if (alienAlive[r, c])
+                    {
+                        e.Graphics.FillRectangle(
+                            Brushes.Red,
+                            alienX[r, c],
+                            alienY[r, c],
+                            alienWidth,
+                            alienHeight
+                        );
+                    }
+                }
+            }
         }
 
         private void gameTimer_Tick(object sender, EventArgs e)
@@ -103,8 +132,27 @@ namespace ICS3U_Final_Galaga
                     bulletActive = false;
             }
             UpdatePlayer();
+            // BULLET vs ALIENS
+            for (int r = 0; r < alienRows; r++)
+            {
+                for (int c = 0; c < alienCols; c++)
+                {
+                    if (!alienAlive[r, c] || !bulletActive)
+                        continue;
+
+                    if (bulletX < alienX[r, c] + alienWidth &&
+                        bulletX + bulletWidth > alienX[r, c] &&
+                        bulletY < alienY[r, c] + alienHeight &&
+                        bulletY + bulletHeight > alienY[r, c])
+                    {
+                        alienAlive[r, c] = false;
+                        bulletActive = false;
+                    }
+                }
+            }
             this.Invalidate();
         }
+        // updates player movment
         void UpdatePlayer()
         {
             if (moveLeft && playerX > 0)
@@ -118,6 +166,19 @@ namespace ICS3U_Final_Galaga
                 bulletY -= bulletSpeed;
                 if (bulletY < 0)
                     bulletActive = false;
+            }
+        }
+        // sets up the alians 
+        void SetupAliens()
+        {
+            for (int r = 0; r < alienRows; r++)
+            {
+                for (int c = 0; c < alienCols; c++)
+                {
+                    alienX[r, c] = 100 + c * 145;
+                    alienY[r, c] = 40 + r * 100;
+                    alienAlive[r, c] = true;
+                }
             }
         }
     }
