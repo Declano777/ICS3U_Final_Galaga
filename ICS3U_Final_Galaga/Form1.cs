@@ -27,11 +27,11 @@ namespace ICS3U_Final_Galaga
         int bulletY;
         int bulletWidth = 8;
         int bulletHeight = 20;
-        int bulletSpeed = 6;
+        int bulletSpeed = 15;
         bool bulletActive = false;
 
         // ALIENS
-        const int alienRows = 3;
+        const int alienRows = 4;
         const int alienCols = 10;
 
         int[,] alienX = new int[alienRows, alienCols];
@@ -40,6 +40,17 @@ namespace ICS3U_Final_Galaga
 
         int alienWidth = 60;
         int alienHeight = 40;
+        int alienStartX = 65; // move left/right
+        int alienStartY = 40;  // move up/down
+
+        int alienSpacingX = 140;
+        int alienSpacingY = 80;
+
+        int alienMoveDirection = 1;   // 1 = right, -1 = left
+        int alienStepSize = 10;
+        int alienStepsTaken = 0;
+        int alienMaxSteps = 10;
+        int alienMoveDownAmount = 20;
         public Form1()
         {
             InitializeComponent();
@@ -153,7 +164,7 @@ namespace ICS3U_Final_Galaga
             this.Invalidate();
         }
         // updates player movment
-        void UpdatePlayer()
+        private void UpdatePlayer()
         {
             if (moveLeft && playerX > 0)
                 playerX -= playerSpeed;
@@ -175,11 +186,54 @@ namespace ICS3U_Final_Galaga
             {
                 for (int c = 0; c < alienCols; c++)
                 {
-                    alienX[r, c] = 100 + c * 145;
-                    alienY[r, c] = 40 + r * 100;
+                    alienX[r, c] = alienStartX + c * alienSpacingX;
+                    alienY[r, c] = alienStartY + r * alienSpacingY;
                     alienAlive[r, c] = true;
                 }
             }
+        }
+        private void MoveAliens()
+        {
+            // MOVE SIDEWAYS
+            if (alienStepsTaken < alienMaxSteps)
+            {
+                for (int r = 0; r < alienRows; r++)
+                {
+                    for (int c = 0; c < alienCols; c++)
+                    {
+                        if (alienAlive[r, c])
+                        {
+                            alienX[r, c] += alienStepSize * alienMoveDirection;
+                        }
+                    }
+                }
+
+                alienStepsTaken++;
+            }
+            else
+            {
+                // MOVE DOWN
+                for (int r = 0; r < alienRows; r++)
+                {
+                    for (int c = 0; c < alienCols; c++)
+                    {
+                        if (alienAlive[r, c])
+                        {
+                            alienY[r, c] += alienMoveDownAmount;
+                        }
+                    }
+                }
+
+                alienStepsTaken = 0;
+                alienMoveDirection *= -1;
+            }
+
+            Invalidate(); // redraw screen
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            MoveAliens();
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
+            this.alienTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // gameTimer
@@ -37,6 +38,12 @@
             this.gameTimer.Enabled = true;
             this.gameTimer.Interval = 16;
             this.gameTimer.Tick += new System.EventHandler(this.gameTimer_Tick);
+            // 
+            // alienTimer
+            // 
+            this.alienTimer.Enabled = true;
+            this.alienTimer.Interval = 400;
+            this.alienTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -57,6 +64,7 @@
 
         #endregion
         private System.Windows.Forms.Timer gameTimer;
+        private System.Windows.Forms.Timer alienTimer;
     }
 }
 
