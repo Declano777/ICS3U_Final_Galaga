@@ -51,10 +51,30 @@ namespace ICS3U_Final_Galaga
         int alienStepsTaken = 0;
         int alienMaxSteps = 10;
         int alienMoveDownAmount = 20;
+
+        //Alian Bullets
+        int maxAlienBullets = 5;
+
+        int[] alienBulletX;
+        int[] alienBulletY;
+        bool[] alienBulletActive;
+
+        int alienBulletWidth = 5;
+        int alienBulletHeight = 15;
+        int alienBulletSpeed = 20;
+
+        Random rand = new Random();
+
+
         public Form1()
         {
             InitializeComponent();
             SetupAliens();
+            this.KeyPreview = true;
+            alienBulletX = new int[maxAlienBullets];
+            alienBulletY = new int[maxAlienBullets];
+            alienBulletActive = new bool[maxAlienBullets];
+
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -106,6 +126,19 @@ namespace ICS3U_Final_Galaga
                 );
 
             }
+            // Alien bullets
+            for (int i = 0; i < maxAlienBullets; i++)
+            {
+                if (alienBulletActive[i])
+                {
+                    e.Graphics.FillRectangle(
+                        Brushes.Red,
+                        alienBulletX[i],
+                        alienBulletY[i],
+                        alienBulletWidth,
+                        alienBulletHeight);
+                }
+            }
             // DRAW ALIENS
             for (int r = 0; r < alienRows; r++)
             {
@@ -142,6 +175,17 @@ namespace ICS3U_Final_Galaga
                 if (bulletY < 0)
                     bulletActive = false;
             }
+            // Move alien bullets
+            for (int i = 0; i < maxAlienBullets; i++)
+            {
+                if (alienBulletActive[i])
+                {
+                    alienBulletY[i] += alienBulletSpeed;
+
+                    if (alienBulletY[i] > ClientSize.Height)
+                        alienBulletActive[i] = false;
+                }
+            }
             UpdatePlayer();
             // BULLET vs ALIENS
             for (int r = 0; r < alienRows; r++)
@@ -159,7 +203,9 @@ namespace ICS3U_Final_Galaga
                         alienAlive[r, c] = false;
                         bulletActive = false;
                     }
+
                 }
+
             }
             this.Invalidate();
         }
@@ -234,6 +280,35 @@ namespace ICS3U_Final_Galaga
         private void timer1_Tick(object sender, EventArgs e)
         {
             MoveAliens();
+        }
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void alianTimer_Tick(object sender, EventArgs e)
+        {
+            // Find a free bullet
+            for (int i = 0; i < maxAlienBullets; i++)
+            {
+                if (!alienBulletActive[i])
+                {
+                    // Pick random alien
+                    int r = rand.Next(alienRows);
+                    int c = rand.Next(alienCols);
+
+                    if (!alienAlive[r, c])
+                        return;
+
+                    alienBulletX[i] = alienX[r, c] + alienWidth / 2;
+                    alienBulletY[i] = alienY[r, c] + alienHeight;
+
+                    alienBulletActive[i] = true;
+                    break;
+                }
+            }
         }
     }
 }

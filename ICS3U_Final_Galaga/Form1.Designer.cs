@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
             this.alienTimer = new System.Windows.Forms.Timer(this.components);
+            this.alianTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // gameTimer
@@ -45,6 +46,12 @@
             this.alienTimer.Interval = 400;
             this.alienTimer.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // alianTimer
+            // 
+            this.alianTimer.Enabled = true;
+            this.alianTimer.Interval = 2000;
+            this.alianTimer.Tick += new System.EventHandler(this.alianTimer_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -55,6 +62,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
@@ -65,6 +73,7 @@
         #endregion
         private System.Windows.Forms.Timer gameTimer;
         private System.Windows.Forms.Timer alienTimer;
+        private System.Windows.Forms.Timer alianTimer;
     }
 }
 
