@@ -14,10 +14,11 @@ namespace ICS3U_Final_Galaga
     {
         // PLAYER
         int playerX = 360;
-        int playerY = 730;
-        int playerWidth = 80;
-        int playerHeight = 40;
+        int playerY = 330;
+        int playerWidth = 40;
+        int playerHeight = 20;
         int playerSpeed = 3;
+        int score = 0;
 
         bool moveLeft = false;
         bool moveRight = false;
@@ -25,26 +26,26 @@ namespace ICS3U_Final_Galaga
         // PLAYER BULLET
         int bulletX;
         int bulletY;
-        int bulletWidth = 8;
-        int bulletHeight = 20;
-        int bulletSpeed = 15;
+        int bulletWidth = 4;
+        int bulletHeight = 10;
+        int bulletSpeed = 7;
         bool bulletActive = false;
 
         // ALIENS
-        const int alienRows = 4;
-        const int alienCols = 10;
+        const int alienRows = 3;
+        const int alienCols = 7;
 
         int[,] alienX = new int[alienRows, alienCols];
         int[,] alienY = new int[alienRows, alienCols];
         bool[,] alienAlive = new bool[alienRows, alienCols];
 
-        int alienWidth = 60;
-        int alienHeight = 40;
-        int alienStartX = 65; // move left/right
-        int alienStartY = 40;  // move up/down
+        int alienWidth = 40;
+        int alienHeight = 30;
+        int alienStartX = 20; // move left/right
+        int alienStartY = 50;  // move up/down
 
-        int alienSpacingX = 140;
-        int alienSpacingY = 80;
+        int alienSpacingX = 70;
+        int alienSpacingY = 50;
 
         int alienMoveDirection = 1;   // 1 = right, -1 = left
         int alienStepSize = 10;
@@ -202,9 +203,12 @@ namespace ICS3U_Final_Galaga
                     {
                         alienAlive[r, c] = false;
                         bulletActive = false;
+                        score += 1015;
+                        scoreLabel.Text = "Score: " + score;
                     }
-
+                  
                 }
+               
 
             }
             this.Invalidate();
@@ -277,10 +281,7 @@ namespace ICS3U_Final_Galaga
             Invalidate(); // redraw screen
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            MoveAliens();
-        }
+
 
 
         private void Form1_Load(object sender, EventArgs e)
@@ -309,6 +310,32 @@ namespace ICS3U_Final_Galaga
                     break;
                 }
             }
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            starLabel.Visible = false;
+            titelLabel.Visible = false;
+            startButton.Visible = false;
+            rulesButton.Visible = false;
+            alianTimer2.Enabled = true;
+            alianTimer1.Enabled = true;
+            gameTimer.Enabled = true;
+            score = 0;
+            scoreLabel.Text = "Score: 0";
+            scoreLabel.Visible = true;
+        }
+
+
+        private void alianTimer1_Tick(object sender, EventArgs e)
+        {
+            MoveAliens();
+        }
+
+        private void rulesButton_Click(object sender, EventArgs e)
+        {
+            rules rulesForm = new rules();
+            rulesForm.Show();
         }
     }
 }
