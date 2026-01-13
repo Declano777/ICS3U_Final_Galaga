@@ -12,6 +12,7 @@ namespace ICS3U_Final_Galaga
 {
     public partial class Form1 : Form
     {
+        string scoreFilePath = @"Galagascores.txt";
         // PLAYER
         int playerX = 360;
         int playerY = 330;
@@ -66,6 +67,7 @@ namespace ICS3U_Final_Galaga
 
         Random rand = new Random();
 
+        bool gameOver = false;
 
         public Form1()
         {
@@ -175,6 +177,21 @@ namespace ICS3U_Final_Galaga
 
                 if (bulletY < 0)
                     bulletActive = false;
+            }
+            // Alien bullet hits player
+            for (int i = 0; i < maxAlienBullets; i++)
+            {
+                if (!alienBulletActive[i])
+                    continue;
+
+                if (alienBulletX[i] < playerX + playerWidth &&
+                    alienBulletX[i] + alienBulletWidth > playerX &&
+                    alienBulletY[i] < playerY + playerHeight &&
+                    alienBulletY[i] + alienBulletHeight > playerY)
+                {
+                    GameOver();
+                    
+                }
             }
             // Move alien bullets
             for (int i = 0; i < maxAlienBullets; i++)
@@ -310,6 +327,19 @@ namespace ICS3U_Final_Galaga
                     break;
                 }
             }
+            // Aliens reach ground
+            for (int r = 0; r < alienRows; r++)
+            {
+                for (int c = 0; c < alienCols; c++)
+                {
+                    if (alienAlive[r, c] &&
+                        alienY[r, c] + alienHeight >= playerY)
+                    {
+                        GameOver();
+                        return;
+                    }
+                }
+            }
         }
 
         private void startButton_Click(object sender, EventArgs e)
@@ -332,10 +362,78 @@ namespace ICS3U_Final_Galaga
             MoveAliens();
         }
 
+        private void RestartGame()
+        {
+            gameOver = false;
+
+            // Reset score
+            score = 0;
+            scoreLabel.Text = "Score: 0";
+
+            // Hide game over text
+            gameOverLabel.Visible = false;
+
+            // Reset bullet
+            bulletActive = false;
+
+            // Reset alien bullets
+            for (int i = 0; i < maxAlienBullets; i++)
+                alienBulletActive[i] = false;
+
+            // Reset aliens
+            SetupAliens();
+            alienMoveDirection = 1;
+
+            // Restart timers
+            gameTimer.Start();
+            alianTimer2.Start();
+            alianTimer1.Start();
+
+            restartButton.Visible = false;
+            enterNameLabel.Visible = false;
+            nameTextBox.Visible = false;
+            saveScoreButton.Visible = false;
+
+            Invalidate();
+        }
         private void rulesButton_Click(object sender, EventArgs e)
         {
             rules rulesForm = new rules();
             rulesForm.Show();
+        }
+        private void GameOver()
+        {
+            gameOver = true;
+
+            gameTimer.Stop();
+            alianTimer2.Stop();
+            alianTimer1.Stop(); 
+
+            gameOverLabel.Visible = true;
+            restartButton.Visible = true;
+            enterNameLabel.Visible = true;
+            nameTextBox.Visible = true;
+            saveScoreButton.Visible = true;
+        }
+
+        private void restartButton_Click(object sender, EventArgs e)
+        {
+            RestartGame();
+        }
+
+        private void saveScoreButton_Click(object sender, EventArgs e)
+        {
+            string playerName = nameTextBox.Text;
+
+            if (playerName == "")
+                return;
+
+            using (System.IO.StreamWriter writer = new System.IO.StreamWriter(scoreFilePath, true))
+            {
+                writer.WriteLine(playerName + " - " + score);
+            }
+
+            nameTextBox.Text = "";
         }
     }
 }

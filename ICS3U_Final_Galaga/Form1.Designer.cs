@@ -38,6 +38,11 @@
             this.rulesButton = new System.Windows.Forms.Button();
             this.scoreLabel = new System.Windows.Forms.Label();
             this.alianTimer1 = new System.Windows.Forms.Timer(this.components);
+            this.gameOverLabel = new System.Windows.Forms.Label();
+            this.restartButton = new System.Windows.Forms.Button();
+            this.saveScoreButton = new System.Windows.Forms.Button();
+            this.nameTextBox = new System.Windows.Forms.TextBox();
+            this.enterNameLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -63,7 +68,7 @@
             // startButton
             // 
             this.startButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startButton.Location = new System.Drawing.Point(256, 265);
+            this.startButton.Location = new System.Drawing.Point(271, 265);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(276, 29);
             this.startButton.TabIndex = 1;
@@ -75,7 +80,7 @@
             // 
             this.titelLabel.Font = new System.Drawing.Font("Papyrus", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titelLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.titelLabel.Location = new System.Drawing.Point(217, 67);
+            this.titelLabel.Location = new System.Drawing.Point(235, 67);
             this.titelLabel.Name = "titelLabel";
             this.titelLabel.Size = new System.Drawing.Size(342, 177);
             this.titelLabel.TabIndex = 2;
@@ -85,7 +90,7 @@
             // rulesButton
             // 
             this.rulesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rulesButton.Location = new System.Drawing.Point(271, 314);
+            this.rulesButton.Location = new System.Drawing.Point(285, 312);
             this.rulesButton.Name = "rulesButton";
             this.rulesButton.Size = new System.Drawing.Size(251, 29);
             this.rulesButton.TabIndex = 3;
@@ -109,12 +114,74 @@
             this.alianTimer1.Interval = 400;
             this.alianTimer1.Tick += new System.EventHandler(this.alianTimer1_Tick);
             // 
+            // gameOverLabel
+            // 
+            this.gameOverLabel.Font = new System.Drawing.Font("Monospac821 BT", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameOverLabel.ForeColor = System.Drawing.Color.Red;
+            this.gameOverLabel.Location = new System.Drawing.Point(115, 89);
+            this.gameOverLabel.Name = "gameOverLabel";
+            this.gameOverLabel.Size = new System.Drawing.Size(567, 155);
+            this.gameOverLabel.TabIndex = 5;
+            this.gameOverLabel.Text = "GAME OVER";
+            this.gameOverLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.gameOverLabel.Visible = false;
+            // 
+            // restartButton
+            // 
+            this.restartButton.AllowDrop = true;
+            this.restartButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.restartButton.Location = new System.Drawing.Point(271, 265);
+            this.restartButton.Name = "restartButton";
+            this.restartButton.Size = new System.Drawing.Size(276, 29);
+            this.restartButton.TabIndex = 6;
+            this.restartButton.Text = "Restart";
+            this.restartButton.UseVisualStyleBackColor = true;
+            this.restartButton.Visible = false;
+            this.restartButton.Click += new System.EventHandler(this.restartButton_Click);
+            // 
+            // saveScoreButton
+            // 
+            this.saveScoreButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.saveScoreButton.Location = new System.Drawing.Point(285, 376);
+            this.saveScoreButton.Name = "saveScoreButton";
+            this.saveScoreButton.Size = new System.Drawing.Size(251, 34);
+            this.saveScoreButton.TabIndex = 7;
+            this.saveScoreButton.Text = "Add high score ";
+            this.saveScoreButton.UseVisualStyleBackColor = true;
+            this.saveScoreButton.Visible = false;
+            this.saveScoreButton.Click += new System.EventHandler(this.saveScoreButton_Click);
+            // 
+            // nameTextBox
+            // 
+            this.nameTextBox.Location = new System.Drawing.Point(341, 347);
+            this.nameTextBox.Name = "nameTextBox";
+            this.nameTextBox.Size = new System.Drawing.Size(129, 22);
+            this.nameTextBox.TabIndex = 8;
+            this.nameTextBox.Visible = false;
+            // 
+            // enterNameLabel
+            // 
+            this.enterNameLabel.Font = new System.Drawing.Font("Monospac821 BT", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.enterNameLabel.ForeColor = System.Drawing.Color.White;
+            this.enterNameLabel.Location = new System.Drawing.Point(95, 347);
+            this.enterNameLabel.Name = "enterNameLabel";
+            this.enterNameLabel.Size = new System.Drawing.Size(225, 23);
+            this.enterNameLabel.TabIndex = 9;
+            this.enterNameLabel.Text = "Enter name";
+            this.enterNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.enterNameLabel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlText;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.enterNameLabel);
+            this.Controls.Add(this.nameTextBox);
+            this.Controls.Add(this.saveScoreButton);
+            this.Controls.Add(this.restartButton);
+            this.Controls.Add(this.gameOverLabel);
             this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.rulesButton);
             this.Controls.Add(this.titelLabel);
@@ -128,6 +195,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -140,6 +208,11 @@
         private System.Windows.Forms.Button rulesButton;
         private System.Windows.Forms.Label scoreLabel;
         private System.Windows.Forms.Timer alianTimer1;
+        private System.Windows.Forms.Label gameOverLabel;
+        private System.Windows.Forms.Button restartButton;
+        private System.Windows.Forms.Button saveScoreButton;
+        private System.Windows.Forms.TextBox nameTextBox;
+        private System.Windows.Forms.Label enterNameLabel;
     }
 }
 
