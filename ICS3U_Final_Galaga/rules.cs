@@ -15,6 +15,12 @@ namespace ICS3U_Final_Galaga
         public rules()
         {
             InitializeComponent();
+            
+        }
+
+        private void rules_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

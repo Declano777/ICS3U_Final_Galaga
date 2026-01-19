@@ -43,6 +43,8 @@
             this.saveScoreButton = new System.Windows.Forms.Button();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.enterNameLabel = new System.Windows.Forms.Label();
+            this.blackLabel = new System.Windows.Forms.Label();
+            this.youWinLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -61,7 +63,7 @@
             this.starLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.starLabel.Location = new System.Drawing.Point(0, -2);
             this.starLabel.Name = "starLabel";
-            this.starLabel.Size = new System.Drawing.Size(803, 455);
+            this.starLabel.Size = new System.Drawing.Size(799, 455);
             this.starLabel.TabIndex = 0;
             this.starLabel.Text = resources.GetString("starLabel.Text");
             // 
@@ -171,12 +173,36 @@
             this.enterNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.enterNameLabel.Visible = false;
             // 
+            // blackLabel
+            // 
+            this.blackLabel.Font = new System.Drawing.Font("Monospac821 BT", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.blackLabel.ForeColor = System.Drawing.Color.Red;
+            this.blackLabel.Location = new System.Drawing.Point(0, -2);
+            this.blackLabel.Name = "blackLabel";
+            this.blackLabel.Size = new System.Drawing.Size(799, 455);
+            this.blackLabel.TabIndex = 10;
+            this.blackLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.blackLabel.Visible = false;
+            // 
+            // youWinLabel
+            // 
+            this.youWinLabel.Font = new System.Drawing.Font("Monospac821 BT", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.youWinLabel.ForeColor = System.Drawing.Color.Gold;
+            this.youWinLabel.Location = new System.Drawing.Point(115, 89);
+            this.youWinLabel.Name = "youWinLabel";
+            this.youWinLabel.Size = new System.Drawing.Size(567, 155);
+            this.youWinLabel.TabIndex = 11;
+            this.youWinLabel.Text = "YOU WIN";
+            this.youWinLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.youWinLabel.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlText;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.youWinLabel);
             this.Controls.Add(this.enterNameLabel);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.saveScoreButton);
@@ -187,6 +213,7 @@
             this.Controls.Add(this.titelLabel);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.starLabel);
+            this.Controls.Add(this.blackLabel);
             this.DoubleBuffered = true;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -213,6 +240,8 @@
         private System.Windows.Forms.Button saveScoreButton;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label enterNameLabel;
+        private System.Windows.Forms.Label blackLabel;
+        private System.Windows.Forms.Label youWinLabel;
     }
 }
 

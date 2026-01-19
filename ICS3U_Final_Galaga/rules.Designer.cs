@@ -51,7 +51,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(338, 33);
             this.label2.TabIndex = 1;
-            this.label2.Text = "3. Shoot alians to get points.";
+            this.label2.Text = "3. Shoot aliens to get points.";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
@@ -61,7 +61,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(338, 33);
             this.label3.TabIndex = 2;
-            this.label3.Text = "4. Avoid alian bullets";
+            this.label3.Text = "4. Avoid alien bullets";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
@@ -71,7 +71,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(338, 33);
             this.label4.TabIndex = 3;
-            this.label4.Text = "2. Press space to shoot";
+            this.label4.Text = "2. Press W to shoot";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // rules
@@ -85,6 +85,7 @@
             this.Controls.Add(this.label1);
             this.Name = "rules";
             this.Text = "rules";
+            this.Load += new System.EventHandler(this.rules_Load);
             this.ResumeLayout(false);
 
         }

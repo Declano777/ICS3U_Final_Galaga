@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace ICS3U_Final_Galaga
 {
     public partial class Form1 : Form
     {
-        string scoreFilePath = @"Galagascores.txt";
+        string scoreFilePath = @"C:\Users\Decla\OneDrive\Desktop\comp sci icons\Galaga Scores\galaga scores.txt";
+        SoundPlayer music = new SoundPlayer(Properties.Resources.Start_Music___Galaga);
         // PLAYER
         int playerX = 360;
         int playerY = 330;
@@ -63,15 +65,17 @@ namespace ICS3U_Final_Galaga
 
         int alienBulletWidth = 5;
         int alienBulletHeight = 15;
-        int alienBulletSpeed = 20;
+        int alienBulletSpeed = 15;
 
         Random rand = new Random();
 
         bool gameOver = false;
+        bool youWin = false;
 
         public Form1()
         {
             InitializeComponent();
+            music.PlayLooping();
             SetupAliens();
             this.KeyPreview = true;
             alienBulletX = new int[maxAlienBullets];
@@ -88,7 +92,7 @@ namespace ICS3U_Final_Galaga
             if (e.KeyCode == Keys.D)
                 moveRight = true;
 
-            if (e.KeyCode == Keys.Space && !bulletActive)
+            if (e.KeyCode == Keys.W && !bulletActive)
             {
                 bulletActive = true;
                 bulletX = playerX + playerWidth / 2 - bulletWidth / 2;
@@ -222,6 +226,7 @@ namespace ICS3U_Final_Galaga
                         bulletActive = false;
                         score += 1015;
                         scoreLabel.Text = "Score: " + score;
+                        CheckWin();
                     }
                   
                 }
@@ -393,6 +398,8 @@ namespace ICS3U_Final_Galaga
             enterNameLabel.Visible = false;
             nameTextBox.Visible = false;
             saveScoreButton.Visible = false;
+            blackLabel.Visible = false;
+            youWinLabel.Visible = false;
 
             Invalidate();
         }
@@ -414,6 +421,7 @@ namespace ICS3U_Final_Galaga
             enterNameLabel.Visible = true;
             nameTextBox.Visible = true;
             saveScoreButton.Visible = true;
+            blackLabel.Visible = true;
         }
 
         private void restartButton_Click(object sender, EventArgs e)
@@ -434,6 +442,35 @@ namespace ICS3U_Final_Galaga
             }
 
             nameTextBox.Text = "";
+        }
+
+        private void YouWin()
+        {
+            youWin = true;
+            //stopes all timers
+            gameTimer.Stop();
+            alianTimer2.Stop();
+            alianTimer1.Stop(); 
+
+            youWinLabel.Visible = true;
+            restartButton.Visible = true;
+            enterNameLabel.Visible = true;
+            nameTextBox.Visible = true;
+            saveScoreButton.Visible = true;
+            blackLabel.Visible = true;
+        }
+        private void CheckWin()
+        {
+            for (int r = 0; r < alienRows; r++)
+            {
+                for (int c = 0; c < alienCols; c++)
+                {
+                    if (alienAlive[r, c])
+                        return; // At least one alien still alive
+                }
+            }
+
+            YouWin(); // No aliens alive
         }
     }
 }
