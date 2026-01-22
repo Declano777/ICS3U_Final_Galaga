@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ Declan O'Neill
+ ICS3U
+ Galaga Final Project
+*/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -44,7 +50,7 @@ namespace ICS3U_Final_Galaga
 
         int alienWidth = 40;
         int alienHeight = 30;
-        int alienStartX = 20; // move left/right
+        int alienStartX = 30; // move left/right
         int alienStartY = 50;  // move up/down
 
         int alienSpacingX = 70;
