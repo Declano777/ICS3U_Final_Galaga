@@ -41,8 +41,8 @@ namespace ICS3U_Final_Galaga
         bool bulletActive = false;
 
         // ALIENS
-        const int alienRows = 3;
-        const int alienCols = 7;
+        const int alienRows = 3;//# of rows
+        const int alienCols = 7;//#of colums
 
         int[,] alienX = new int[alienRows, alienCols];
         int[,] alienY = new int[alienRows, alienCols];
@@ -53,6 +53,7 @@ namespace ICS3U_Final_Galaga
         int alienStartX = 30; // move left/right
         int alienStartY = 50;  // move up/down
 
+        //spacing between aliens
         int alienSpacingX = 70;
         int alienSpacingY = 50;
 
@@ -105,9 +106,9 @@ namespace ICS3U_Final_Galaga
                 bulletY = playerY;
             }
 
-        }
+        }//player keys
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        private void Form1_KeyUp(object sender, KeyEventArgs e)//all player keys
         {
             if (e.KeyCode == Keys.A)
                 moveLeft = false;
@@ -353,7 +354,7 @@ namespace ICS3U_Final_Galaga
             }
         }
 
-        private void startButton_Click(object sender, EventArgs e)
+        private void startButton_Click(object sender, EventArgs e)//starts game
         {
             starLabel.Visible = false;
             titelLabel.Visible = false;
@@ -414,7 +415,7 @@ namespace ICS3U_Final_Galaga
             rules rulesForm = new rules();
             rulesForm.Show();
         }
-        private void GameOver()
+        private void GameOver()// stops everything and showes labels.
         {
             gameOver = true;
 
@@ -435,7 +436,7 @@ namespace ICS3U_Final_Galaga
             RestartGame();
         }
 
-        private void saveScoreButton_Click(object sender, EventArgs e)
+        private void saveScoreButton_Click(object sender, EventArgs e) //saves score to save file
         {
             string playerName = nameTextBox.Text;
 
